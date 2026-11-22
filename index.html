@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -195,6 +195,49 @@ footer{padding-block:26px 40px;color:var(--muted);font-size:.85rem;display:flex;
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .card-in,.btn{transition:none}
+}
+
+/* phone layout */
+html{-webkit-text-size-adjust:100%}
+a,button{-webkit-tap-highlight-color:transparent}
+@media (max-width:600px){
+  body{font-size:16px}
+  .nav .wrap{gap:0 12px;min-height:0;padding-top:10px}
+  .brand{font-size:1.2rem}
+  .lang{order:2;margin-inline-start:auto}
+  .nav nav{order:3;width:100%;margin:0;flex-wrap:nowrap;overflow-x:auto;gap:22px;padding-block:10px;scrollbar-width:none}
+  .nav nav::-webkit-scrollbar{display:none}
+  .nav nav a{white-space:nowrap;font-size:.92rem}
+  .hero{padding-block:28px 24px}
+  .hero .wrap{gap:26px}
+  .hero h1,html[lang="en"] .hero h1{font-size:2.35rem}
+  .hero .lede{font-size:1rem;margin-block:14px 20px}
+  .cta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cta .btn{justify-content:center;text-align:center;padding:12px 10px;font-size:.95rem}
+  .stage canvas{height:380px}
+  .stage .hint{position:static;display:block;padding:8px 12px;border-top:1px solid var(--line);font-size:.66rem}
+  .jo-cells div{padding:8px 9px}
+  .jo-cells span{font-size:.72rem}
+  .legend div{padding:9px 12px}
+  section{padding-block:36px}
+  .sec-head{margin-bottom:18px;gap:6px 12px}
+  .sec-head h2{font-size:1.9rem;width:100%}
+  .caps{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;border:0;border-radius:0;background:none;
+        margin-inline:-20px;padding-inline:20px;scroll-padding-inline:20px;scrollbar-width:none}
+  .caps::-webkit-scrollbar{display:none}
+  .caps .cap{flex:0 0 82%;scroll-snap-align:start;border:1px solid var(--line);border-radius:10px;background:var(--plate);padding:18px}
+  .card-in{padding:18px}
+  .card .col{transform:none}
+  .board{transform:none;padding:12px}
+  .card h3,.card.wide h3{font-size:1.9rem}
+  .board .row{grid-template-columns:48px minmax(30px,1fr) 100px;gap:10px}
+  .svc-item{padding:16px}
+  .chat-log{height:240px}
+  .spec div{grid-template-columns:104px 1fr;padding:11px 14px}
+  .contact{padding:26px 20px;gap:18px}
+  .contact .ways{width:100%;align-items:stretch}
+  .contact .btn{justify-content:center}
+  .phone{text-align:center}
 }
 </style>
 </head>
@@ -469,9 +512,8 @@ var CHAT = {
        opts:[["حالة قطعة","Piece status","piece"],["رجوع","Back","start"]] }
 };
 
-var L = 0; // 0 = ar, 1 = en
+var L = 1; // 0 = ar, 1 = en. Always opens in English.
 var stageRelabel = null;
-try{ if(localStorage.getItem("pf-lang")==="en") L = 1; }catch(e){}
 function tr(v){ return Array.isArray(v) ? v[L] : v; }
 function el(tag, cls, html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
 
@@ -554,7 +596,6 @@ function applyLang(){
 }
 document.getElementById("langBtn").addEventListener("click",function(){
   L = L?0:1;
-  try{ localStorage.setItem("pf-lang", L?"en":"ar"); }catch(e){}
   applyLang();
 });
 applyLang();
